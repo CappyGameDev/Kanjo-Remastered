@@ -2,6 +2,8 @@
 using BepInEx.Logging;
 using HarmonyLib;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.Events;
 
 namespace KanjoRemastered {
     [BepInPlugin(PluginInfo.PLUGIN_GUID, PluginInfo.PLUGIN_NAME, PluginInfo.PLUGIN_VERSION)]
@@ -31,7 +33,7 @@ namespace KanjoRemastered {
             Instance._Log(msg, lvl);
         }
     }
-	
+
     [HarmonyPatch(typeof(Vehicle), "GamepadControl")] /* Gamepad Camera */
     public static class CamPatch {
         private static void Postfix(Vehicle __instance) {

@@ -90,7 +90,7 @@ namespace KanjoRemastered {
     
     [HarmonyPatch]
     public static class GameTougePatch {
-		static Vector3 tougeSpawn = new Vector3(3380, 160, -965);
+		static Vector3 tougeSpawn = new Vector3(3380, 154.5f, -965);
 		static Quaternion tougeRot = new Quaternion(0, 180, 0, 1);
 		
 		static void _SpawnCar(GameUI _this, GlobalManager globalManager, CarData carData) {
@@ -117,6 +117,7 @@ namespace KanjoRemastered {
 					foreach (var obj in rootObjects) {
 						if (obj.name == "touge_3") {
 							obj.SetActive(true);
+							obj.transform.Find("Coll").gameObject.SetActive(false); 
 							return;
 						}
 					}
