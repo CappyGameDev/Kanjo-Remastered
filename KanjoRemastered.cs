@@ -4,6 +4,7 @@ using HarmonyLib;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
+using System.Reflection;
 
 namespace KanjoRemastered {
     [BepInPlugin(PluginInfo.PLUGIN_GUID, PluginInfo.PLUGIN_NAME, PluginInfo.PLUGIN_VERSION)]
@@ -14,10 +15,24 @@ namespace KanjoRemastered {
         
         public static RemasteredBase Instance = null;
         
+		public static AssetBundle assets;
+		
         private void Awake() {
             /* Keep Instance */
-            Instance = this;
-            
+
+			/* Assets */
+			/*
+			Assembly assembly = Assembly.GetExecutingAssembly();
+			var stream = assembly.GetManifestResourceStream("KanjoRemastered.UI.SliderUI.unitypackage");
+			if (stream == null) {
+				Logger.LogInfo($"{PluginInfo.PLUGIN_GUID} could not load assets!");
+				return;
+			}
+			var array = new byte[stream.Length];
+			stream.Read(array, 0, (int)stream.Length);
+			assets = UnityEngine.AssetBundle.LoadFromMemory(array);
+			*/
+			
             /* Unity Patching */
             Harmony.PatchAll();
             Logger.LogInfo($"{PluginInfo.PLUGIN_GUID} is loaded!");

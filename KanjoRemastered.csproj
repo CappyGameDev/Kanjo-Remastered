@@ -28,8 +28,14 @@
     <Reference Include="$(GameDLL)/TriLibCore.*.dll"/>
     <Reference Include="$(GameDLL)/Photon*.dll"/>
     <Reference Include="$(GameDLL)/Assembly-CSharp.dll"/>
-    <Reference Include="$(GameDLL)/UnityEngine*.dll"/>
-    <Reference Include="$(GameDLL)/com.rlabrecque.steamworks.net.dll"/>
+    <Reference Include="$(GameDLL)/Unity.*.dll"/>
+    <Reference Include="$(GameDLL)/UnityEngine.dll"/>
+    <Reference Include="$(GameDLL)/UnityEngine.*.dll"/>
+	<Reference Include="$(GameDLL)/com.rlabrecque.steamworks.net.dll"/>
+  </ItemGroup>
+  
+  <ItemGroup>
+    <EmbeddedResource Include="UI\**" />
   </ItemGroup>
   
   <Target Name="CopyCustomContent" AfterTargets="AfterBuild">
