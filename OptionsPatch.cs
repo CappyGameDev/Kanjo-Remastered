@@ -30,6 +30,10 @@ namespace KanjoRemastered {
 			static void Respawn(GameUI _this) {
 				_this.activeCar.transform.position = spawnPosition;
 				_this.activeCar.transform.rotation = spawnRotation;
+				_this.activeCar.localVel = Vector3.zero;
+				_this.activeCar.Speed = 0f;
+				_this.activeCar.rigidbody.velocity = Vector3.zero;;
+				_this.activeCar.rigidbody.angularVelocity = Vector3.zero;;
 			}
 			
 			static void ToggleDrift(GameUI _this, Text txt) {
