@@ -4,6 +4,7 @@ using HarmonyLib;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 namespace KanjoRemastered {
 	
@@ -46,6 +47,20 @@ namespace KanjoRemastered {
 					txt.text = "Drift";
 				}
 			}
+
+			static void TogglePPVolume(GameUI _this, Text txt) {
+				SceneManagement.Scene activeScene = SceneManagement.SceneManager.GetActiveScene();
+				GameObject[] rootObjects = activeScene.GetRootGameObjects();
+				foreach (var obj in rootObjects) {
+					if (obj.name == "Global Volume") {
+						UnityEngine.Rendering.Volume vol = obj.GetComponent<Volume>();
+						obj.SetActive(false);
+					}else if (obj.name.StartsWith("DriftTrack"))){
+						GameObject gobj = obj.transform.Find("Global Volume(1)").gameObject;
+						UnityEngine.Rendering.Volume vol = obj.GetComponent<Volume>();
+						gobj.SetActive(false);
+					}
+            }
 			
 			private static void Postfix(GameUI __instance) {
 				Transform gearbox = __instance.pauseMenu.transform.Find("gearbox");
@@ -98,12 +113,25 @@ namespace KanjoRemastered {
 				} else {
 					tval.text = "Standard";
 				}
-				
+
 				var dbutton = driftmode.GetComponent<Button>();
+
+				GameObject togglepp = UnityEngine.Object.Instantiate<GameObject>(unflip.gameObject);
+				togglepp.name = "Toggle PP";
+				togglepp.transform.SetParent(__instance.pauseMenu.transform);
+				togglepp.transform.localPosition = gearbox.localPosition;
+				togglepp.transform.localPosition -= new Vector3(0, 130, 0);
+				togglepp.transform.localScale = gearbox.localScale;
+				tval = respawn.transform.Find("value").gameObject.GetComponent<Text>();
+				tval.text = "Toggle PP";
+				var pbutton = togglepp.GetComponent<Button>();
+
+
 				
 				ubutton.onClick.AddListener(() => Unflip(__instance));
 				rbutton.onClick.AddListener(() => Respawn(__instance));
 				dbutton.onClick.AddListener(() => ToggleDrift(__instance, tval));
+				pbutton.onClick.AddListener(() => TogglePPVolume(__instance));
 				
 			}
 		}
